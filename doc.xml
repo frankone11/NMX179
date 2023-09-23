@@ -1,0 +1,47 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+	<s:Body>
+		<GetLecturasValidasRangoResponse xmlns="http://tempuri.org/">
+			<GetLecturasValidasRangoResult xmlns:a="http://schemas.datacontract.org/2004/07/SyC.CGRyF.Utilerias"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+				<a:Datos>
+					<a:LecValidas>
+						<a:NSM>T50D0A16000</a:NSM>
+						<a:RFC>MMP1312017FA</a:RFC>
+						<a:codigoError>000</a:codigoError>
+						<a:fecha>20-09-2023</a:fecha>
+						<a:gasto>0.00000000</a:gasto>
+						<a:hora>00:01:03</a:hora>
+						<a:id>484729</a:id>
+						<a:latitud>25.89702000</a:latitud>
+						<a:lectura>34264.00000000</a:lectura>
+						<a:longitud>-103.64223000</a:longitud>
+						<a:nombreArchivo>MMP1312017FA_20230920_T50D0A16000_053D2203282M.txt</a:nombreArchivo>
+						<a:tipoMedicion>M</a:tipoMedicion>
+						<a:volumen>0.00000000</a:volumen>
+						<a:NSUE>T50D0A16000</a:NSUE>
+					</a:LecValidas>
+					<a:LecValidas>
+						<a:NSM>T50D0A16000</a:NSM>
+						<a:RFC>MMP1312017FA</a:RFC>
+						<a:codigoError>000</a:codigoError>
+						<a:fecha>21-09-2023</a:fecha>
+						<a:gasto>0.00000000</a:gasto>
+						<a:hora>00:01:04</a:hora>
+						<a:id>486549</a:id>
+						<a:latitud>25.89702000</a:latitud>
+						<a:lectura>34365.00000000</a:lectura>
+						<a:longitud>-103.64223000</a:longitud>
+						<a:nombreArchivo>MMP1312017FA_20230921_T50D0A16000_053D2203282M.txt</a:nombreArchivo>
+						<a:tipoMedicion>M</a:tipoMedicion>
+						<a:volumen>0.00000000</a:volumen>
+						<a:NSUE>T50D0A16000</a:NSUE>
+					</a:LecValidas>
+				</a:Datos>
+				<a:Respuesta>
+					<a:mensaje>Exitoso</a:mensaje>
+					<a:result>1</a:result>
+				</a:Respuesta>
+			</GetLecturasValidasRangoResult>
+		</GetLecturasValidasRangoResponse>
+	</s:Body>
+</s:Envelope>
