@@ -1,12 +1,14 @@
 import parametros
 import requests
 import xmltodict
+from openpyxl import Workbook
 
 def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:int, anio_fin:int):
 	#print("Reporte => Fecha inicial: " + str(anio_ini) + "-" + str(mes_ini).format("2d") + "-" + str(dia_ini) + " Fecha final: " + str(anio_fin) + "-" + str(mes_fin) + "-" + str(dia_fin))
 	fecha_inicial = "{}-{:02d}-{:02d}".format(anio_ini, mes_ini, dia_ini)
 	fecha_final = "{}-{:02d}-{:02d}".format(anio_fin, mes_fin, dia_fin)
 	rfc = "MMP1312017FA"
+	nsm =  ""
 	formato = "Reporte de {} => Fecha inicial {} Fecha final: {}".format(rfc, fecha_inicial, fecha_final)
 	print(formato)
 
@@ -17,7 +19,7 @@ def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:
 	'			<!--Optional:-->\r\n'\
 	'			<tem:filtro>\r\n'\
 	'				<!--Optional:-->\r\n'\
-	'				<syc:NSM></syc:NSM>\r\n'\
+	'				<syc:NSM>' + nsm + '</syc:NSM>\r\n'\
 	'				<!--Optional:-->\r\n'\
 	'				<syc:NSUE></syc:NSUE>\r\n'\
 	'				<!--Optional:-->\r\n'\
@@ -40,14 +42,43 @@ def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:
 	rxml = r.text
 
 	print("Resp: " + str(r.status_code))
-
-	stack = xmltodict.parse(rxml)
-
-	elems = stack['s:Envelope']['s:Body']['GetLecturasValidasRangoResponse']['GetLecturasValidasRangoResult']['a:Datos']['a:LecValidas']
-
-	for elem in elems:
-		print(elem)
+	if r.status_code == 200:
 		print("*****")
 
-	print("Fin de impresión")
+		stack = xmltodict.parse(rxml)
+
+		elems = stack['s:Envelope']['s:Body']['GetLecturasValidasRangoResponse']['GetLecturasValidasRangoResult']['a:Datos']['a:LecValidas']
+
+		wb = Workbook()
+
+		ws = wb.active
+
+		ws.cell(row=1, column=1).value = "RFC: " + rfc
+		ws.append(["RFC", "NSM", "NSUE", "FECHA", "HORA", "LECTURA", "LATITUD", "LONGITUD", "CODIGO DE ERROR"])
+
+		for elem in elems:
+			tipomedicion = elem['a:tipoMedicion']
+			r_rfc =  elem['a:RFC']
+			r_nsm = elem['a:NSM']
+			r_coderror = elem['a:codigoError']
+			r_fecha = elem['a:fecha']
+			r_hora = elem['a:hora']
+			r_nsue = elem['a:NSUE']
+			r_lectura = elem['a:lectura']
+			r_latitud = elem['a:latitud']
+			r_longitud = elem['a:longitud']
+
+			format = "RFC: {} NSM: {} NSUE: {} Fecha: {} {} Lectura: {} Ubicación: [{}, {}] Código de Error: {}".format(
+				r_rfc, r_nsm, r_nsue, r_fecha, r_hora, r_lectura, r_latitud, r_longitud, r_coderror
+			)
+
+			ws.append([r_rfc, r_nsm, r_nsue, r_fecha, r_hora, r_lectura, r_latitud, r_longitud, r_coderror])
+			
+			print(format)
+			print("*****")
+
+		wb.save(r_rfc + ".xlsx")
+		print("Fin de impresión")
+	else:
+		print("Error de respuesta del servidor")
 
