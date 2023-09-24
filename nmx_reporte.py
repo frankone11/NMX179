@@ -65,7 +65,7 @@ def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:
 				headers = {'Content-Type': 'text/xml;charset=UTF-8',
 					'SOAPAction' : 'http://tempuri.org/IServiceLecturas/GetLecturasValidasRango'}
 				
-				r = requests.post(parametros.URL, headers=headers, data=txml)
+				r = requests.post(parametros.URL, headers=headers, data=txml, verify=False)
 
 				rxml = r.text
 
@@ -106,10 +106,12 @@ def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:
 						print(format)
 						print("*****")
 
-					wb.save("{}_{}.xlsx".format(rfc,nsm))
+					wb.save("{}/{}_{}.xlsx".format(parametros.carpeta_salida,rfc,nsm))
 					print("Fin de impresión")
 				else:
 					print("Error de respuesta del servidor")
 			else:
 				print("Celda en blanco")
+			j += 1
+		i += 1
 
