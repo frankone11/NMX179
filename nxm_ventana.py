@@ -29,7 +29,8 @@ class VentanaNmx(wx.Frame):
 			mes_fin = fecha_fin.GetMonth() + 1 #Se suma uno porque es un dato de base cero
 			anio_fin = fecha_fin.GetYear()
 
-			nmx_reporte.Inicia_Reporte(dia_ini, mes_ini, anio_ini, dia_fin, mes_fin, anio_fin)	
+			nmx_reporte.Inicia_Reporte(dia_ini, mes_ini, anio_ini, dia_fin, mes_fin, anio_fin)
+			wx.MessageBox("El reporte ha finalizado.", style=wx.ICON_INFORMATION)
 
 
 def IniciaVentana():
