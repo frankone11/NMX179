@@ -4,7 +4,7 @@ import xmltodict
 from openpyxl import Workbook, load_workbook
 
 def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:int, anio_fin:int):
-	
+	res = False
 	workbook = load_workbook(filename=parametros.archivo_entrada)
 	sheet = workbook.active
 
@@ -114,4 +114,6 @@ def Inicia_Reporte(dia_ini:int, mes_ini:int, anio_ini:int, dia_fin:int, mes_fin:
 				print("Celda en blanco")
 			j += 1
 		i += 1
+	res = True
+	return res
 
